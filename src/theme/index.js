@@ -4,7 +4,8 @@ export const colors = {
     background: '#F5F5F5',
     surface: '#FFFFFF',
     text: '#000000',
-    border: '#FF0000'
+    border: '#FF0000',
+    primary: '#FF0000',
 }
 
 // espaciado de separacion de letras y componentes 

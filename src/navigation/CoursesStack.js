@@ -11,7 +11,13 @@ export default function CoursesStack() {
             <Stack.Screen
                 name = "Home"
                 component={StartScreen}
-                options = {{HeaderShown: false, title: 'Home'}}
+                options = {{HeaderShown: false, title: 'Home'}} //eliminar title en dado caso
+            />
+
+            <Stack.Screen
+                name = "ClassDetail"
+                component={ClassDetailScreen}
+                options = {{title: 'ClassDetail', headerBackTitle: 'Back'}}
             />
         </Stack.Navigator>
     )

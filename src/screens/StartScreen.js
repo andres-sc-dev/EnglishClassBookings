@@ -1,18 +1,35 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, Image, Pressable, StyleSheet, ScrollView} from 'react-native';
+import React, {useState, useEffect, useMemo} from 'react';
+import {View, Text, Image, Pressable, StyleSheet, ScrollView, FlatList} from 'react-native';
+
 import { Ionicons } from '@expo/vector-icons';
+
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LabelLevel from '../components/LabelLevel';
 import {colors, spacing, radius, typography} from '../theme'
 import {formatPrice, CLASSES, LEVELS} from '../data/classes';
 import { TextInput } from 'react-native';
-import LevelChip from '../components/LevelChip';    
+import LevelChip from '../components/LevelChip';   
+import Card from '../components/Card'; 
+import useResponsive from '../hooks/useResponsive';
 
 
 export default function StartScreen({ navigation }){
     const insets = useSafeAreaInsets();
     const [level, setLevel] = useState('All Levels');
     const [search, setSearch] = useState('');
+
+    const results = useMemo(() => {
+        const searchText = search.trim().toLowerCase();
+        return CLASSES.filter((clas) => {
+            const levelMatches = level === 'All Levels' || clas.level === level;
+            const textMatches = searchText ||
+            textMatches === ''||
+            clas.teacher.name.toLowerCase().includes(searchText) ||
+            clas.title.toLowerCase().includes(searchText) 
+            //aca poner mas "coincidencias" para que busque en mas campos
+            return levelMatches && textMatches;
+        });
+    }, [level, search]);
 
     return(
         <View style = {[style.screen, {paddingTop: insets.top + spacing.md}]}>
@@ -55,6 +72,18 @@ export default function StartScreen({ navigation }){
                     ))
                 }
             </ScrollView>
+            <FlatList
+                data = {results}
+                keyExtractor = {(item) => item.id}
+                renderItem = {(item) => (
+                    <Card class={item} 
+                          onPress = {() => navigation.navigate('ClassDetailScreen', {clas: item.id})} //depronto classId
+                    />
+                )}
+                contentContainerStyle = {{
+                    paddingHorizontal,
+                    flexGrow: 1}}
+            />
         </View>
     )
 }

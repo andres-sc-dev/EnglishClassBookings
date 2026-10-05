@@ -1,24 +1,30 @@
-import React from 'react';  
-import {View, Text, StyleSheet} from 'react-native';
-import {colors, spacing} from '../theme'
+// src/components/LabelLevel.js
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { colors, spacing, radius, typography } from '../theme';
 
-
-export default function LabelLevel({level}) {
-    return (
-        <View style={[styles.container, {backgroundColor: colors.background}]}>
-            <Text style={styles.text}>{level}</Text>
-        </View>
-    )
-}    
+// Insignia de nivel: se muestra sobre la imagen de cada curso (ej. "Basic", "Advanced").
+export default function LabelLevel({ level }) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>{level}</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
-    container:{
-        alignSelf: 'auto',
-        paddingVertical: 3,
-        paddingHorizontal: spacing.md,
-        borderWidth: 1,
-
- },
-    text:{fontSize: 11, fontWeight: '700', letterSpacing: 0.3}
-
-})
+  container: {
+    alignSelf: 'flex-start',
+    backgroundColor: colors.surface,
+    paddingVertical: 5,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.full, // totalmente redondeado, estilo "pill"
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  text: {
+    ...typography.caption,
+    color: colors.primary,
+    fontWeight: '700',
+  },
+});

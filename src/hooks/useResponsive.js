@@ -1,3 +1,4 @@
+// src/hooks/useResponsive.js
 import {useWindowDimensions} from 'react-native';
 
 export default function useResponsive() {
@@ -7,7 +8,7 @@ export default function useResponsive() {
     //const isMobile = !isTablet;
     //sobrecargar el metodo
 
-    return {width, height, isTablet, isHorizontal
+    return {width, height, isTablet, isHorizontal,
         columns: isTablet ? 2 : 1,
         width: isTablet ? 320 : Math.min(width * 0.72, 300),
         paddingHorizontal: isTablet ? 32 : 16,

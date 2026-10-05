@@ -7,6 +7,7 @@ import CoursesStack from './src/navigation/CoursesStack';
 // se borra por no uso import StartScreen from './screens/StartScreen';
 // import {DefaultTheme} from '@react-navigation/native';
 import {colors} from './src/theme/index';
+import { ReservationsProvider } from './src/context/ReservationsContext';
 
 const themeNavigation = {
   ...DefaultTheme,
@@ -22,12 +23,14 @@ const themeNavigation = {
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <NavigationContainer theme={themeNavigation}>
-        <StatusBar style = "dark" />
-        <CoursesStack/>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <ReservationsProvider> 
+      <SafeAreaProvider>
+        <NavigationContainer theme={themeNavigation}>
+          <StatusBar style = "dark" />
+          <CoursesStack/>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </ReservationsProvider> 
   );
 }
 

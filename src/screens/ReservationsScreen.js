@@ -9,7 +9,7 @@ export default function ReservationsScreen() {
   return (
     <View style={styles.container}> 
       {classSeats.length === 0 ? (
-        <EmptyState message="No hay reservas disponibles." />   // Si no hay reservas, se muestra un estado vacío con un mensaje
+        <EmptyState icon="list-outline" title="Sin reservas" message="No hay reservas disponibles." />   // Si no hay reservas, se muestra un estado vacío con un mensaje
       ) : (
         <FlatList
           data={classSeats}
@@ -18,7 +18,7 @@ export default function ReservationsScreen() {
             <View style={styles.seatItem}>
                 <Text style={styles.seatText}>{item.title}</Text>
                 <Text style={styles.seatText}>Horario: {item.schedules}</Text>
-                <Text style={styles.seatText}>Profesor: {item.teacher}</Text>
+                <Text style={styles.seatText}>Profesor: {item.teacher.name}</Text>
             </View>
           )}
         />

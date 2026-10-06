@@ -55,7 +55,7 @@ export default function StartScreen({ navigation }){
                         placeholder="Buscar por nombre o nivel"
                         placeholderTextColor={colors.textMuted}
                         autoCorrect={false}
-                        autoComplete={false}
+                        autoComplete="off"
                     />
                     {search.length > 0 && (
                         <Pressable onPress={() => setSearch('')}>
@@ -84,6 +84,7 @@ export default function StartScreen({ navigation }){
 
             {/* Lista principal de cursos filtrados */}
             <FlatList
+                key = {columns} // fuerza a que se re-renderice la lista cuando cambia el número de columnas
                 data={results}
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => ( // renderiza cada curso como una tarjeta, en caso de error poner ,index como prop 
@@ -99,6 +100,7 @@ export default function StartScreen({ navigation }){
                         icon="search-outline"
                         title="No se encontraron resultados"
                         message="Intenta ajustar tu búsqueda o criterios de filtro"
+                        actionLabel="Restablecer filtros"
                         onAction={() => {
                             setLevel('All');
                             setSearch('');
@@ -126,7 +128,7 @@ const style = StyleSheet.create({
     borderColor: colors.border,
   },
   input: { flex: 1, fontSize: 14, color: colors.text, paddingVertical: 0 },
-  chipsRow: { flexGrow: 1, marginBottom: spacing.md, height: 46 }, //resuelto bug con height, no se veia completamente el texto cuando esta en all
+  chipsRow: { flexGrow: 0, flexShrink: 0, marginBottom: spacing.md, height: 46 }, //resuelto bug con height, no se veia completamente el texto cuando esta en all
   chipsContent: { paddingHorizontal: spacing.lg }, 
   columnWrapper: { gap: spacing.md }
 });

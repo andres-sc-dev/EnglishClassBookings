@@ -1,11 +1,19 @@
 import React, {useContext} from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
+import {View, Text, FlatList, StyleSheet, Pressable, Alert} from 'react-native';
 import {ReservationsContext} from '../context/ReservationsContext';
 import EmptyState from '../components/EmptyState';
 import {colors, spacing} from '../theme';
 
 export default function ReservationsScreen() {
-  const {classSeats} = useContext(ReservationsContext);
+  const {classSeats, cancelReservation} = useContext(ReservationsContext);
+
+  // Pide confirmación y, si el usuario acepta, cancela la reserva (esto libera el cupo y el horario)
+  const handleCancel = (item) => {
+    Alert.alert('Cancelar reserva', '¿Cancelar ' + item.title + ' (' + item.schedules + ')?', [
+      {text: 'No', style: 'cancel'},
+      {text: 'Sí, cancelar', style: 'destructive', onPress: () => cancelReservation(item.id)},
+    ]);
+  };
   return (
     <View style={styles.container}> 
       {classSeats.length === 0 ? (
@@ -19,6 +27,9 @@ export default function ReservationsScreen() {
                 <Text style={styles.seatText}>{item.title}</Text>
                 <Text style={styles.seatText}>Horario: {item.schedules}</Text>
                 <Text style={styles.seatText}>Profesor: {item.teacher.name}</Text>
+                <Pressable style={styles.cancelButton} onPress={() => handleCancel(item)}>
+                  <Text style={styles.cancelText}>Cancelar</Text>
+                </Pressable>
             </View>
           )}
         />
@@ -43,4 +54,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.text,
   },
+  cancelButton: {
+    alignSelf: 'flex-end',
+    marginTop: spacing.sm,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.lg,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  cancelText: { color: colors.primary, fontWeight: '700' },
 });

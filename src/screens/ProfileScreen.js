@@ -10,6 +10,14 @@ export default function ProfileScreen() {
     const [email, setEmail] = useState(profile?.email || '');
     const [phone, setPhone] = useState(profile?.phone || '');
     const [photo, setPhoto] = useState(profile?.photo || null);
+    useEffect(() => {
+        if (profile) {
+            setName(profile.name);
+            setEmail(profile.email);
+            setPhone(profile.phone);
+            setPhoto(profile.photo);
+        }
+    }, [profile]);
     return ( 
         
         <View style={styles.container}>

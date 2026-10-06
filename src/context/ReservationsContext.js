@@ -45,7 +45,7 @@ const reserveClass = useCallback((course, schedules) => {
     courseId: course.id,
     title: course.title,
     level : course.level,
-    teacher: course.teacher,
+    teacher: course.teacher.name,
     price: course.price,
     schedules,
     createIn : new Date().toISOString()

@@ -26,7 +26,7 @@ export default function ReservationsScreen() {
             <View style={styles.seatItem}>
                 <Text style={styles.seatText}>{item.title}</Text>
                 <Text style={styles.seatText}>Horario: {item.schedules}</Text>
-                <Text style={styles.seatText}>Profesor: {item.teacher.name}</Text>
+                <Text style={styles.seatText}>Profesor: {item.teacher}</Text>
                 <Pressable style={styles.cancelButton} onPress={() => handleCancel(item)}>
                   <Text style={styles.cancelText}>Cancelar</Text>
                 </Pressable>

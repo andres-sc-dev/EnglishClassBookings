@@ -1,8 +1,9 @@
-import React from "react";
-import { View, Text, Image, ScrollView, StyleSheet, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, ScrollView, StyleSheet, Pressable, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import LabelLevel from "../components/LabelLevel";
+import LevelChip from "../components/LevelChip";
 import { colors, spacing, typography, radius, shadow } from "../theme";
 import { formatPrice } from "../data/classes";
 import { useReservations } from '../context/ReservationsContext';
@@ -14,7 +15,29 @@ export default function ClassDetailScreen({ route, navigation }) {
   const { course } = route.params;
 
   const { classSeats, reserveClass } = useReservations();
-  const seatsLeft = classSeats[course.id];
+  // classSeats es el arreglo de reservas: cupos libres = cupos del curso - reservas de este curso
+  const seatsLeft = course.spots - classSeats.filter((r) => r.courseId === course.id).length;
+  // horario que el usuario elige antes de reservar
+  const [selected, setSelected] = useState(null);
+
+  // Intenta reservar y avisa el resultado según el motivo que devuelve el contexto
+  const handleReserve = () => {
+    if (!selected) {
+      Alert.alert('Elige un horario', 'Selecciona un horario antes de reservar.');
+      return;
+    }
+    const result = reserveClass(course, selected);
+    if (result.ok) {
+      Alert.alert('¡Reserva creada!', course.title + ' - ' + selected);
+      setSelected(null);
+    } else if (result.reason === 'schedule') {
+      Alert.alert('Horario ocupado', 'Ya tienes otra clase reservada en ese horario.');
+    } else if (result.reason === 'duplicate') {
+      Alert.alert('Ya reservada', 'Ya reservaste esta clase en ese horario.');
+    } else {
+      Alert.alert('Sin cupos', 'Esta clase ya no tiene cupos disponibles.');
+    }
+  };
 
   return (
     <View style={styles.screen}>
@@ -89,6 +112,20 @@ export default function ClassDetailScreen({ route, navigation }) {
               <Text style={styles.scheduleValue}>{course.schedules.join(", ")}</Text>
             </View>
           </View>
+
+          <View>
+            <Text style={styles.sectionTitle}>Elige un horario</Text>
+            <View style={styles.schedulesRow}>
+              {course.schedules.map((item) => (
+                <LevelChip
+                  key={item}
+                  label={item}
+                  active={item === selected}
+                  onPress={() => setSelected(item)}
+                />
+              ))}
+            </View>
+          </View>
         </View>
       </ScrollView>
 
@@ -103,15 +140,13 @@ export default function ClassDetailScreen({ route, navigation }) {
           <Pressable
               style={[styles.reserveButton, seatsLeft === 0 && { opacity: 0.5 }]}
               disabled={seatsLeft === 0}
-              onPress={() => reserveClass(course.id)}>
+              onPress={handleReserve}>
               <Text style={styles.reserveButtonText}>
                   {seatsLeft === 0 ? 'Sin cupos' : 'Reservar clase'}
               </Text>
           </Pressable>
         
-        {/*<Pressable style={styles.reserveButton} onPress={() => {}}>
-          <Text style={styles.reserveButtonText}>Reservar clase</Text>
-        </Pressable>*/}
+        
       </View>
     </View>
   );
@@ -164,6 +199,8 @@ const styles = StyleSheet.create({
   infoRowSchedules: { flexDirection: "column", alignItems: "flex-start", gap: spacing.xs },
   infoRowHeader: { flexDirection: "row", alignItems: "center", gap: spacing.md },
   scheduleValue: { ...typography.body, color: colors.text, fontWeight: "700", lineHeight: 20 },
+  sectionTitle: { ...typography.cardTitle, marginBottom: spacing.sm },
+  schedulesRow: { flexDirection: "row", flexWrap: "wrap", rowGap: spacing.sm },
 
   bar: {
     position: "absolute",

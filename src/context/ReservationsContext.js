@@ -68,8 +68,12 @@ const reserveClass = useCallback((course, schedules) => {
 return results;
 }, [classSeats]);
 
+const cancelReservation = useCallback((id) => {
+  setClassSeats((prev) => prev.filter((r) => r.id !== id));
+}, []);
+
   return (
-      <ReservationsContext.Provider value={{ classSeats, reserveClass }}>
+      <ReservationsContext.Provider value={{ classSeats, reserveClass, cancelReservation }}>
         {children}
       </ReservationsContext.Provider>
     );

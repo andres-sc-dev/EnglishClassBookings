@@ -42,14 +42,19 @@ export function ReservationsProvider({children}){
 const reserveClass = useCallback((course, schedules) => {
   const news = {
     id: course.id + '-' + schedules,
+    courseId: course.id,
     title: course.title,
     level : course.level,
     teacher: course.teacher,
     price: course.price,
     schedules,
     createIn : new Date().toISOString()
+    
   }
   let results = {ok:true};
+  if (classSeats.some((r)=> r.id === news.id)) return {ok: false, reason: 'duplicate'}; //misma clase y mismo horario
+  if (classSeats.some((r)=> r.schedules === schedules)) return {ok: false, reason: 'schedule'}; //horario ya ocupado por otra reserva
+  if (classSeats.filter((r)=> r.courseId === course.id).length >= course.spots) return {ok: false, reason: 'full'}; //sin cupos
   setClassSeats((prev)=>{
     //verificar si ya existe la reserva
     const alreadyExists = prev.some((r)=> r.id === news.id);
@@ -61,7 +66,7 @@ const reserveClass = useCallback((course, schedules) => {
     return [news, ...prev]
 })  
 return results;
-}, []);
+}, [classSeats]);
 
   return (
       <ReservationsContext.Provider value={{ classSeats, reserveClass }}>

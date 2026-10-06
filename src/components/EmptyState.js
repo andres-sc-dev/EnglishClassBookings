@@ -1,17 +1,22 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {ionicons} from '@expo/vector-icons';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {colors, spacing} from '../theme';
 import {Ionicons} from '@expo/vector-icons';
 
-export default function EmptyState({icon = 'calendar-outline', title, message, onAction}) {
+export default function EmptyState({icon = 'calendar-outline', title, message, actionLabel, onAction}) {
     return(
     <View style = {style.container}>
         <View style = {style.circle}>
-            <Ionicons name = "icon" size = {34} color = {colors.primary}/>
+            <Ionicons name = {icon} size = {34} color = {colors.primary}/>
         </View>
         <Text style = {style.title}>{title}</Text>
         <Text style = {style.message}>{message}</Text>
+        {/* el boton solo aparece si se pasa la prop onAction */}
+        {onAction && (
+          <Pressable style = {style.button} onPress = {onAction}>
+            <Text style = {style.buttonText}>{actionLabel}</Text>
+          </Pressable>
+        )}
     </View>
 
 
@@ -47,4 +52,15 @@ const style = StyleSheet.create({
     marginTop: spacing.sm,
     lineHeight: 20,
   },
-});
+  button: {
+    marginTop: spacing.lg,
+    backgroundColor: colors.primary,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.xl,
+    borderRadius: radius.full,
+  },
+  buttonText: { 
+    color: colors.textInverse,
+    fontWeight: '700',
+    fontSize: 14 },
+  });

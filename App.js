@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
@@ -8,6 +9,8 @@ import CoursesStack from './src/navigation/CoursesStack';
 // import {DefaultTheme} from '@react-navigation/native';
 import {colors} from './src/theme/index';
 import { ReservationsProvider } from './src/context/ReservationsContext';
+import TabNavigation from './src/navigation/TabNavigation';
+import { ProfileProvider } from './src/context/ProfileContext';
 
 const themeNavigation = {
   ...DefaultTheme,
@@ -23,14 +26,16 @@ const themeNavigation = {
 
 export default function App() {
   return (
-    <ReservationsProvider> 
-      <SafeAreaProvider>
-        <NavigationContainer theme={themeNavigation}>
-          <StatusBar style = "dark" />
-          <CoursesStack/>
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </ReservationsProvider> 
+    <ProfileProvider>
+      <ReservationsProvider> 
+        <SafeAreaProvider>
+          <NavigationContainer theme={themeNavigation}>
+            <StatusBar style = "dark" />
+            <TabNavigation/>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </ReservationsProvider> 
+    </ProfileProvider>
   );
 }
 

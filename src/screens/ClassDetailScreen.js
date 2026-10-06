@@ -1,4 +1,3 @@
-// src/screens/ClassDetailScreen.js
 import React from "react";
 import { View, Text, Image, ScrollView, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";

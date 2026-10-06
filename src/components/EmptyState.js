@@ -1,4 +1,3 @@
-//src/components/EmptyState.js
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {ionicons} from '@expo/vector-icons';

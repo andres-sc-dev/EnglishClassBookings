@@ -1,4 +1,3 @@
-// src/screens/StartScreen.js
 import React, {useState, useEffect, useMemo} from 'react';
 import {View, Text, Image, Pressable, StyleSheet, ScrollView, FlatList,TextInput } from 'react-native';
 

@@ -1,4 +1,3 @@
-// src/hooks/useResponsive.js
 import {useWindowDimensions} from 'react-native';
 
 export default function useResponsive() {

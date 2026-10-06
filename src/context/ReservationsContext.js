@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo,  useState, useEffect, useCallback } from "react";
 import asyncStorage from "@react-native-async-storage/async-storage";
+import { CLASSES } from "../data/classes";
 
 const KEY_RESERVATIONS = "@reservations_mj20";
 
@@ -43,7 +44,7 @@ const reserveClass = useCallback((course, schedules) => {
     id: course.id + '-' + schedules,
     title: course.title,
     level : course.level,
-    teacher: course.teacher.name + ' '+ course.teacher.lastname,
+    teacher: course.teacher,
     price: course.price,
     schedules,
     createIn : new Date().toISOString()

@@ -1,5 +1,3 @@
-// src/theme/index.js
-import {platform} from 'react-native';
 //la app tendra un fondo de color blanco y tendra lineas rojas en sus cards 
 // Tokens de diseño centralizados: colores, espaciados, radios, tipografía y sombras.
 // Paleta: fondo blanco/gris muy claro, con el rojo usado SOLO como color de acento

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
-import {colors, spacing} from '../theme';
+import {colors, spacing, radius} from '../theme';
 import {Ionicons} from '@expo/vector-icons';
 
 export default function EmptyState({icon = 'calendar-outline', title, message, actionLabel, onAction}) {

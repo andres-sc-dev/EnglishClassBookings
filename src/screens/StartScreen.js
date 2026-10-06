@@ -30,10 +30,11 @@ export default function StartScreen({ navigation }){
         return CLASSES.filter((clas) => {
             const levelMatches = level === 'All' || 
             clas.level === level;
-            const textMatches = searchText ||
+            const textMatches = !searchText ||
             searchText === ''|| //redundancia, la condicion de arriba ya cubre este caso, pero se deja por claridad
             clas.teacher.name.toLowerCase().includes(searchText) ||
-            clas.title.toLowerCase().includes(searchText) 
+            clas.title.toLowerCase().includes(searchText) ||
+            clas.level.toLowerCase().includes(searchText) 
             //aca poner mas "coincidencias" para que busque en mas campos
             return levelMatches && textMatches;
         });

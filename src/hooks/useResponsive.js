@@ -9,7 +9,7 @@ export default function useResponsive() {
 
     return {width, height, isTablet, isHorizontal,
         columns: isTablet ? 2 : 1,
-        width: isTablet ? 320 : Math.min(width * 0.72, 300),
+        cardWidth: isTablet ? 320 : Math.min(width * 0.72, 300),
         paddingHorizontal: isTablet ? 32 : 16,
     };
 }

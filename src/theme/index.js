@@ -1,9 +1,3 @@
-//la app tendra un fondo de color blanco y tendra lineas rojas en sus cards 
-// Tokens de diseño centralizados: colores, espaciados, radios, tipografía y sombras.
-// Paleta: fondo blanco/gris muy claro, con el rojo usado SOLO como color de acento
-// (estados activos, precio, insignias, línea de acento en las cards),
-// no como color de borde por defecto en todos los elementos.
-
 export const colors = {
   background: '#FAFAFA',
   surface: '#FFFFFF',

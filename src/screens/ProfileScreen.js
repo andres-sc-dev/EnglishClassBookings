@@ -66,7 +66,7 @@ export default function ProfileScreen() {
                         style={[styles.input, styles.inputDisabled]}
                         placeholder="Nombre"
                         value={name}
-                        onChangeText={setName}
+                        readOnly = {true} 
                     />
                     <TextInput
                         style={styles.input}
@@ -123,8 +123,7 @@ export default function ProfileScreen() {
                     <Button
                         title="Guardar"
                         onPress={() => {
-                            console.log('Guardando...', {name, email, phone, photo});
-                            saveProfile({name, email, phone, photo})}
+                            handleSave();}
                         }
                     />
                 </>

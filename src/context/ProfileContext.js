@@ -9,6 +9,7 @@ export const ProfileProvider = ({children}) => {
     
     const loadProfile = async () => { //
         try {
+            //linea de reinicio await AsyncStorage.removeItem('profile');
             const savedProfile = await AsyncStorage.getItem('profile');
             if (savedProfile) {
                 setProfile(JSON.parse(savedProfile)); 

@@ -3,7 +3,6 @@ import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import LabelLevel from './LabelLevel';
 import { colors, spacing, radius, typography, shadow } from '../theme';
 import { formatPrice } from '../data/classes';
-import { CLASSES } from '../data/classes';
 
 // Tarjeta de curso mostrada en la lista principal.
 export default function Card({ course, onPress }) {
